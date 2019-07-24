@@ -20,8 +20,7 @@ class GoogleMapController {
     _GoogleMapState googleMapState,
   ) async {
     assert(id != null);
-    final MethodChannel channel =
-        MethodChannel('plugins.flutter.io/google_maps_$id');
+    final MethodChannel channel = MethodChannel('plugins.flutter.io/google_maps_$id');
     await channel.invokeMethod<void>('map#waitForMap');
     return GoogleMapController._(
       channel,
@@ -73,12 +72,29 @@ class GoogleMapController {
         _googleMapState.onTap(LatLng._fromJson(call.arguments['position']));
         break;
       case 'map#onLongPress':
-        _googleMapState
-            .onLongPress(LatLng._fromJson(call.arguments['position']));
+        _googleMapState.onLongPress(LatLng._fromJson(call.arguments['position']));
         break;
       default:
         throw MissingPluginException();
     }
+  }
+
+  Future<void> showInfoWindow(String markerId) async {
+    await channel.invokeMethod<void>(
+      'markers#showInfoWindow',
+      <String, dynamic>{
+        'markerId': markerId,
+      },
+    );
+  }
+
+  Future<void> hideInfoWindow(String markerId) async {
+    await channel.invokeMethod<void>(
+      'markers#hideInfoWindow',
+      <String, dynamic>{
+        'markerId': markerId,
+      },
+    );
   }
 
   /// Updates configuration options of the map user interface.
@@ -187,8 +203,7 @@ class GoogleMapController {
   /// and [Android](https://developers.google.com/maps/documentation/android-sdk/style-reference)
   /// style reference for more information regarding the supported styles.
   Future<void> setMapStyle(String mapStyle) async {
-    final List<dynamic> successAndError =
-        await channel.invokeMethod<List<dynamic>>('map#setStyle', mapStyle);
+    final List<dynamic> successAndError = await channel.invokeMethod<List<dynamic>>('map#setStyle', mapStyle);
     final bool success = successAndError[0];
     if (!success) {
       throw MapStyleException(successAndError[1]);
@@ -197,8 +212,7 @@ class GoogleMapController {
 
   /// Return [LatLngBounds] defining the region that is visible in a map.
   Future<LatLngBounds> getVisibleRegion() async {
-    final Map<String, dynamic> latLngBounds =
-        await channel.invokeMapMethod<String, dynamic>('map#getVisibleRegion');
+    final Map<String, dynamic> latLngBounds = await channel.invokeMapMethod<String, dynamic>('map#getVisibleRegion');
     final LatLng southwest = LatLng._fromJson(latLngBounds['southwest']);
     final LatLng northeast = LatLng._fromJson(latLngBounds['northeast']);
 

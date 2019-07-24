@@ -116,4 +116,18 @@ class MarkersController {
     Map<String, Object> markerMap = (Map<String, Object>) marker;
     return (String) markerMap.get("markerId");
   }
+
+   void showInfoWindow(String markerId) {
+    MarkerController markerController = markerIdToController.get(markerId);
+    if (markerController != null) {
+      markerController.showInfoWindow();
+    }
+  }
+
+  void hideInfoWindow(String markerId) {
+    MarkerController markerController = markerIdToController.get(markerId);
+    if (markerController != null) {
+      markerController.hideInfoWindow();
+    }
+  }
 }

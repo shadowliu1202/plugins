@@ -238,6 +238,20 @@ final class GoogleMapController
           result.success(null);
           break;
         }
+      case "markers#showInfoWindow":
+      {
+        String markerId = (String) call.argument("markerId");
+        markersController.showInfoWindow(markerId);
+        result.success(null);
+        break;
+      }
+      case "markers#hideInfoWindow":
+      {
+        String markerId = (String) call.argument("markerId");
+        markersController.showInfoWindow(markerId);
+        result.success(null);
+        break;
+      }
       case "markers#update":
         {
           Object markersToAdd = call.argument("markersToAdd");
@@ -326,7 +340,7 @@ final class GoogleMapController
           break;
         }
       case "map#setStyle":
-        {
+        { Log.d(TAG, "map#setStyle");
           String mapStyle = (String) call.arguments;
           boolean mapStyleSet;
           if (mapStyle == null) {

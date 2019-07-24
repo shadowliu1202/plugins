@@ -50,6 +50,14 @@ class MarkerController implements MarkerOptionsSink {
     marker.setFlat(flat);
   }
 
+  public void showInfoWindow() {
+    marker.showInfoWindow();
+  }
+
+  public void hideInfoWindow() {
+    marker.hideInfoWindow();
+  }
+
   @Override
   public void setIcon(BitmapDescriptor bitmapDescriptor) {
     marker.setIcon(bitmapDescriptor);
