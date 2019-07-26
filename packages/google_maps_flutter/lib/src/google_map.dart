@@ -15,6 +15,9 @@ typedef void MapCreatedCallback(GoogleMapController controller);
 typedef void CameraPositionCallback(CameraPosition position);
 
 class GoogleMap extends StatefulWidget {
+  static of(BuildContext context, {bool root = false}) => root
+      ? context.rootAncestorStateOfType(const TypeMatcher<_GoogleMapState>())
+      : context.ancestorStateOfType(const TypeMatcher<_GoogleMapState>());
   const GoogleMap({
     Key key,
     @required this.initialCameraPosition,
