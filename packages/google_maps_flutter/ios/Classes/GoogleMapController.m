@@ -134,6 +134,8 @@ static double ToDouble(NSNumber* data) { return [FLTGoogleMapJsonConversions toD
     [self moveWithCameraUpdate:ToCameraUpdate(call.arguments[@"cameraUpdate"])];
     result(nil);
   } else if ([call.method isEqualToString:@"markers#showInfoWindow"]) {
+       result(nil);
+  } else if ([call.method isEqualToString:@"markers#hideInfoWindow"]) {
     result(nil);
   } else if ([call.method isEqualToString:@"map#update"]) {
     InterpretMapOptions(call.arguments[@"options"], self);

@@ -248,7 +248,7 @@ final class GoogleMapController
       case "markers#hideInfoWindow":
       {
         String markerId = (String) call.argument("markerId");
-        markersController.showInfoWindow(markerId);
+        markersController.hideInfoWindow(markerId);
         result.success(null);
         break;
       }
